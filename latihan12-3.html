@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Responsive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-slate-800 text-white shadow-md">
+        <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between px-6 py-4"
+             aria-label="Navigasi utama">
+
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold">
+                Website<span class="text-blue-400">Saya</span>
+            </a>
+
+            <!-- Tombol hamburger: hanya tampil di mobile -->
+            <button
+                id="tombol-menu"
+                type="button"
+                class="rounded-lg p-2 hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400 md:hidden"
+                aria-label="Buka menu navigasi"
+                aria-controls="menu"
+                aria-expanded="false">
+                <svg class="h-6 w-6" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2"
+                     aria-hidden="true">
+                    <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+
+            <!-- Navigasi -->
+            <ul id="menu"
+                class="mt-4 hidden w-full flex-col gap-2 md:mt-0 md:flex md:w-auto md:flex-row md:gap-4">
+                <li>
+                    <a href="#beranda"
+                       class="block rounded-lg bg-blue-600 px-4 py-2 transition-colors hover:bg-blue-700">
+                        Beranda
+                    </a>
+                </li>
+                <li>
+                    <a href="#tentang"
+                       class="block rounded-lg px-4 py-2 transition-colors hover:bg-slate-700">
+                        Tentang
+                    </a>
+                </li>
+                <li>
+                    <a href="#layanan"
+                       class="block rounded-lg px-4 py-2 transition-colors hover:bg-slate-700">
+                        Layanan
+                    </a>
+                </li>
+                <li>
+                    <a href="#kontak"
+                       class="block rounded-lg px-4 py-2 transition-colors hover:bg-slate-700">
+                        Kontak
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+    </header>
+
+    <main class="mx-auto max-w-6xl space-y-10 px-6 py-10 text-slate-800">
+        <section id="beranda">
+            <h1 class="mb-2 text-3xl font-bold">Selamat Datang</h1>
+            <p>Coba perkecil layar dan klik tombol hamburger untuk membuka menu.</p>
+        </section>
+
+        <section id="tentang">
+            <h2 class="text-xl font-bold">Tentang</h2>
+            <p>Kami menyediakan solusi digital untuk kebutuhan Anda.</p>
+        </section>
+
+        <section id="layanan">
+            <h2 class="text-xl font-bold">Layanan</h2>
+            <p>Pembuatan website dan pengembangan aplikasi.</p>
+        </section>
+
+        <section id="kontak">
+            <h2 class="text-xl font-bold">Kontak</h2>
+            <p>Email: info@example.com</p>
+        </section>
+    </main>
+
+    <script>
+        const tombolMenu = document.getElementById("tombol-menu");
+        const menu = document.getElementById("menu");
+
+        function aturMenu(terbuka) {
+            menu.classList.toggle("hidden", !terbuka);
+            menu.classList.toggle("flex", terbuka);
+
+            tombolMenu.setAttribute("aria-expanded", String(terbuka));
+            tombolMenu.setAttribute(
+                "aria-label",
+                terbuka ? "Tutup menu navigasi" : "Buka menu navigasi"
+            );
+        }
+
+        tombolMenu.addEventListener("click", function () {
+            const terbuka = tombolMenu.getAttribute("aria-expanded") === "true";
+            aturMenu(!terbuka);
+        });
+
+        // Tutup menu setelah salah satu navigasi dipilih.
+        menu.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                aturMenu(false);
+            });
+        });
+
+        // Tutup menu menggunakan tombol Escape.
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" &&
+                tombolMenu.getAttribute("aria-expanded") === "true") {
+                aturMenu(false);
+                tombolMenu.focus();
+            }
+        });
+    </script>
+
+</body>
+</html>
